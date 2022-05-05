@@ -1,0 +1,55 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Liste Articles{% endblock %}
+
+{% block body %}
+
+
+  <div class="example-wrapper">
+
+    {{ "now" | date("d/m/Y") }}
+
+    <h4 class="text-secondary">Nombre d'articles : {{ articles | length }}</h4>
+    
+    
+    <h1>Liste Articles</h1>
+
+    {% set resultat = addition(2, 5) %}
+
+    <p>Résultat de la fonction twig personnalisée 'addition' : {{ resultat }}</p>
+    
+
+    <ul>
+      {% for article in articles %}
+        <li class="mb-4">
+          <a href="{{ path('vue_article', { 'id': article.id }) }}">{{ article.titre }}</a>
+          <p class="m-0">{{ article.dateCreation | date('d/m/Y')}}</p>
+          <small>Nb commentaires : {{ article.comments | length }} </small>
+        </li>
+      {% endfor %}
+    </ul>
+
+    <hr>
+    {# Divers exemples Twig #}
+
+    <h3>Exemples Twig...</h3>
+
+    {# La même chose mais avec un filtre 'maison' #}
+    <h4>Nombre d'articles (filtre personnalisé) : {{ articles | taille }}</h4>
+
+
+    {{ path('vue_article', {'id': 1}) }}
+
+    {% set temp = 3 %}
+
+    <p>Température: {{ temp }}</p> 
+    
+    {% set temp = temp + 15 %}
+
+    <p>Température: {{ temp }}</p>
+
+    
+  </div>
+{% endblock %}
+
+

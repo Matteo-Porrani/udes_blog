@@ -1,0 +1,85 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}
+  {{ article.titre }}
+{% endblock %}
+
+{% block body %}
+
+
+  <h3>Article id#{{ article.id }}</h3>
+  <h1>{{ article.titre }}</h1>
+
+  <ul>
+    {% for categ in article.categories %}
+      <li class="badge bg-info">{{categ.name}}</li> 
+    {% endfor %}
+  </ul>
+
+  <small>{{ article.dateCreation | date('d/m/Y')}}</small>
+
+  <p class="w-75 mx-auto mb-5">
+    {{ article.contenu }}
+  </p>
+
+  <a href="{{ path('edition_article', {'id': article.id })}}" class="btn btn-outline-secondary">Éditer</a>
+  <a href="{{ path('suppression_article', {'id': article.id })}}" class="btn btn-outline-danger">Supprimer</a>
+
+
+
+
+  {# T*T -- COMMENTAIRES #}
+  <hr>
+  <h4 class="text-secondary">Commentaires</h4>
+
+  <ul>
+    {% for comment in article.comments %}
+      <li>
+        <div class="alert alert-warning w-75 ms-auto my-2 p-2">
+          <small class="text-primary">Le {{ comment.dateComment | date('d/m/Y h:m') }} par <b>{{ comment.author }}</b></small>
+          <p class="m-0">{{ comment.contenu }}</p>
+        </div>
+      </li>
+    {% endfor %}
+  </ul>
+
+
+  {% for label, messages in app.flashes(['warning', 'danger']) %}
+    {% for message in messages %}
+      <div class="alert alert-{{ label }}">
+        {{ message }}
+      </div>
+    {% endfor %}
+  {% endfor %}
+
+
+  <div>
+    <div class="row">
+      <div class="col">
+
+        {{ form_start(form, { attr: { 'class': 'bg-light p-4' }}) }}
+
+          <h3 class="text-primary">Ajoutez un commentaire</h3>
+
+          {{ form_label(form.contenu, null, { 'label_attr': { 'class': 'form-label' }}) }}
+          {{ form_widget(form.contenu, { 'attr': { 'class': 'form-control'} }) }}
+
+          {{ form_label(form.author, null, { 'label_attr': { 'class': 'form-label' }}) }}
+          {{ form_widget(form.author, { 'attr': { 'class': 'form-control mb-4'} }) }}
+
+
+          <div id="form-check">
+            {{ form_widget(form.condition, { 'attr': { 'class': 'form-check-input'}}) }}
+            {{ form_label(form.condition, null, { 'label_attr': { 'class': 'form-check-label' }}) }}
+          </div>
+
+          {{ form_rest(form) }}
+
+          <button type="submit" class="btn btn-outline-primary d-block mx-auto mt-3">Commenter</button>
+
+        {{ form_end(form) }}
+      </div>
+    </div>
+  </div>
+  
+{% endblock %}
