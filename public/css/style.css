@@ -18,3 +18,17 @@ ul {
 li {
   list-style: none;
 }
+
+/* Utility Classes */
+
+.text-hero {
+  color: #21325b !important;
+}
+
+.bg-hero {
+  background-color: #21325b !important;
+}
+
+.writer-image {
+  width: 75px;
+}

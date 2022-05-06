@@ -105,15 +105,12 @@ class DefaultController extends AbstractController
      * 
      * Ensuite on utilise la logique là où c'est nécessaire pour différencier les 2 cas.
      */
-
-
     if ($article === null) {
       // on crée une nouvelle instance
       $article = new Article();
     }
 
     $logger->info('Nous sommes passés par le logger');
-
 
     // on la passe en 2e argument au formulaire
     // et le f. va qutomatiquement mapper les champs de f. avec les p. de l'objet

@@ -1,0 +1,20 @@
+{% extends "base.html.twig" %}
+
+{% block title %}Learn | Détail Livre {{ book.id }}{% endblock %}
+
+
+
+
+{% block body %}
+  
+  {% include "learn/_learn_navigation.html.twig" %}
+
+  <h1 class="text-hero">{{ book.title }}</h1>
+
+  <img class="writer-image" src="{{asset('img/writer.png')}}" alt="">
+  <h5>{{ book.author }}</h5>
+
+  <p>{{ book.summary }}</p>
+
+
+{% endblock %}

@@ -1,0 +1,18 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Learn | Home{% endblock %}
+
+{% block body %}
+
+  {# Learn Navigation Bar #}
+  {{ include('learn/_learn_navigation.html.twig') }}
+
+  <h1 class="bg-info">Apprendre le Développement Web</h1>
+
+  <ul>
+    {% for book in books %}
+      <li>{{ book.title }}</li>      
+    {% endfor %}
+  </ul>
+
+{% endblock %}

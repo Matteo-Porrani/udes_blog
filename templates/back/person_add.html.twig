@@ -1,0 +1,70 @@
+{% extends "base.html.twig" %}
+
+{% block title %}Ajout Personne{% endblock %}
+
+{% block body %}
+  {{ include('back/_back_navigation.html.twig') }}
+
+  {{ form_start(form) }}
+
+    {# A*A -- LS_NAME  #}
+    <div class="mb-2">
+      {{ form_label(form.ls_name, 'Nom de famille', { 'label_attr' : { 'class': 'form-label text-secondary' }}) }}
+      {{ form_widget(form.ls_name, { 'attr' : { 'class': 'form-control' }}) }}
+
+      <div class="text-danger">
+        {{ form_errors(form.ls_name) }}
+      </div>
+    </div>
+
+    {# A*A -- FS_NAME #}
+    <div class="mb-2">
+      {{ form_label(form.fs_name, 'Prénom', { 'label_attr' : { 'class': 'form-label text-secondary' }}) }}
+      {{ form_widget(form.fs_name, { 'attr' : { 'class': 'form-control' }}) }}
+
+      <div class="text-danger">
+        {{ form_errors(form.fs_name) }}
+      </div>
+    </div>
+
+    {# A*A -- EMAIL #}
+    <div class="mb-2">
+      {{ form_label(form.email, 'Adresse Mail', { 'label_attr': { 'class': 'form-label text-secondary'}}) }}
+      {{ form_widget(form.email, { 'attr': { 'class': 'form-control' }}) }}
+
+      {{ form_help(form.email) }}
+
+      <div class="text-danger">
+        {{ form_errors(form.email) }}
+      </div>
+    </div>
+
+    {# A*A -- NOTES #}  
+    <div class="mb-2">
+      {{ form_label(form.notes, 'Précisions', { 'label_attr' : { 'class': 'form-label text-secondary' }}) }}
+      {{ form_widget(form.notes, { 'attr' : { 'class': 'form-control' }}) }}  
+    </div>
+
+    {# A*A -- CONFIRMED #}
+    <div class="mb-2">
+      {{ form_widget(form.confirmed, { 'attr' : { 'class': 'form-check-input' }}) }}  
+      {{ form_label(form.confirmed, 'Confirmé', { 'label_attr' : { 'class': 'form-label' }}) }}
+    </div>
+
+    {# A*A -- ENREGISTRER #}
+    <div class="mb-2">
+      {{ form_widget(form.Enregistrer, { 'attr' : { 'class': 'btn btn-info text-light' }}) }}  
+    </div>
+
+
+
+
+    {# Le reste du formulaire #}
+    {{ form_rest(form) }}
+
+  {{ form_end(form) }}
+
+{% endblock %}
+
+
+
