@@ -1,0 +1,33 @@
+{% extends "back/index.html.twig" %}
+
+{% block title %}Back | Teams{% endblock %}
+
+{% block back_content %}
+
+  <h4>Teams disponibles</h4>
+
+  {% for t in teams %}
+    <div class="row mb-2">
+      <div class="col card p-2">
+        {# <h1>{{ t.id ~ ' - ' ~ t.name ~ '(' ~ counter[t.id] ~ ')' }}</h1> #}
+        
+        <p class="fs-3">
+          <span class="team-badge" style="background-color: {{ t.color }}"></span>
+          {{ t.id ~ ' - ' ~ t.name ~ ' (' ~ t.persons | length ~ ')' }}
+        </p>
+
+      </div>
+    </div>
+  {% endfor %}
+
+  <hr>
+
+  {{ form_start(form) }}
+
+  {{ form_end(form) }}
+
+
+
+
+{% endblock %}
+

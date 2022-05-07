@@ -12,14 +12,16 @@
 
       <div class="col-4 mb-2">
         <div class="card p-2">
-          <small class="text-info">{{ p.id }}</small>
-          <h5>{{ p.lsName ~ ' ' ~ p.fsName }}</h5>
+          <small class="text-secondary fw-bold fs-3">{{ p.id }}</small>
+          <h4>{{ p.lsName ~ ' ' ~ p.fsName }}</h4>
+          <h5 class="text-info">{{ p.team }}</h5>
           <p>{{ p.notes }}</p>
 
             {% if p.confirmed %} 
-              <p class="fw-bold text-success">confirmé</p>
+              <p><span class="badge rounded-pill bg-success">Confirmé</span></p>
             {% else %}
-              <p class="fw-bold text-danger">en attente</p>
+              <p><span class="badge rounded-pill bg-warning text-dark">En attente</span></p>
+              
             {% endif %}
 
             <a href="{{ path("back_person_edit", { 'id': p.id }) }}" class="btn btn-outline-warning w-50 mb-2">Modifier</a>

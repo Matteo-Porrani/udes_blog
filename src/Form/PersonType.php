@@ -2,9 +2,12 @@
 
 namespace App\Form;
 
+use App\Entity\Team;
 use App\Entity\Person;
+use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\CheckboxType;
+use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
@@ -40,6 +43,11 @@ class PersonType extends AbstractType
       ->add('confirmed', CheckboxType::class, [ // ceci est un champ de type bool, géré avec une checkbox
         'required' => false,
         'data' => true
+      ])
+      ->add('team', EntityType::class, [
+        'class' => Team::class,
+        'multiple' => false,
+        'by_reference' => true // >>>>> TRÈS IMPORTANT !!!
       ])
       ->add('Enregistrer', SubmitType::class);
   }

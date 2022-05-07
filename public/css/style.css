@@ -32,3 +32,13 @@ li {
 .writer-image {
   width: 75px;
 }
+
+.team-badge {
+  display: inline-block;
+  width: 30px;
+  height: 30px;
+  /* border: 1px solid var(--bs-dark); */
+  border-radius: 15px;
+
+  margin-right: 10px;
+}

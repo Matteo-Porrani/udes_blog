@@ -21,7 +21,6 @@ class Person
 
   /**
    * @ORM\Column(type="string", length=255)
-   * 
    * @Assert\Length(
    *    min = 3,
    *    max = 30,
@@ -59,6 +58,11 @@ class Person
    * )
    */
   private $email;
+
+  /**
+   * @ORM\ManyToOne(targetEntity=Team::class, inversedBy="persons")
+   */
+  private $team;
 
   public function getId(): ?int
   {
@@ -123,5 +127,17 @@ class Person
     $this->email = $email;
 
     return $this;
+  }
+
+  public function getTeam(): ?Team
+  {
+      return $this->team;
+  }
+
+  public function setTeam(?Team $team): self
+  {
+      $this->team = $team;
+
+      return $this;
   }
 }

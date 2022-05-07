@@ -18,39 +18,51 @@ use Doctrine\Persistence\ManagerRegistry;
  */
 class PersonRepository extends ServiceEntityRepository
 {
-    public function __construct(ManagerRegistry $registry)
-    {
-        parent::__construct($registry, Person::class);
-    }
+  public function __construct(ManagerRegistry $registry)
+  {
+    parent::__construct($registry, Person::class);
+  }
 
-    /**
-     * @throws ORMException
-     * @throws OptimisticLockException
-     */
-    public function add(Person $entity, bool $flush = true): void
-    {
-        $this->_em->persist($entity);
-        if ($flush) {
-            $this->_em->flush();
-        }
+  /**
+   * @throws ORMException
+   * @throws OptimisticLockException
+   */
+  public function add(Person $entity, bool $flush = true): void
+  {
+    $this->_em->persist($entity);
+    if ($flush) {
+      $this->_em->flush();
     }
+  }
 
-    /**
-     * @throws ORMException
-     * @throws OptimisticLockException
-     */
-    public function remove(Person $entity, bool $flush = true): void
-    {
-        $this->_em->remove($entity);
-        if ($flush) {
-            $this->_em->flush();
-        }
+  /**
+   * @throws ORMException
+   * @throws OptimisticLockException
+   */
+  public function remove(Person $entity, bool $flush = true): void
+  {
+    $this->_em->remove($entity);
+    if ($flush) {
+      $this->_em->flush();
     }
+  }
 
-    // /**
-    //  * @return Person[] Returns an array of Person objects
-    //  */
-    /*
+  // /**
+  //  * @return Person[] Returns an array of Person objects
+  //  */
+  public function findAllOrderByTeam(): array
+  {
+    return $this->createQueryBuilder('p')
+      ->orderBy('p.team', 'ASC')
+      ->getQuery()
+      ->getResult();
+  }
+
+
+  // /**
+  //  * @return Person[] Returns an array of Person objects
+  //  */
+  /*
     public function findByExampleField($value)
     {
         return $this->createQueryBuilder('p')
@@ -64,7 +76,7 @@ class PersonRepository extends ServiceEntityRepository
     }
     */
 
-    /*
+  /*
     public function findOneBySomeField($value): ?Person
     {
         return $this->createQueryBuilder('p')

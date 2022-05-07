@@ -2,12 +2,15 @@
 
 namespace App\Controller;
 
+use App\Entity\Team;
 use App\Entity\Person;
 
+use App\Form\TeamType;
 use App\Form\PersonType;
 
-use App\Repository\PersonRepository;
 
+use App\Repository\PersonRepository;
+use App\Repository\TeamRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 
@@ -28,11 +31,60 @@ class BackController extends AbstractController
   }
 
   /**
+   * @Route("/team", name="back_team", methods={"GET", "POST"})
+   */
+  public function teamShowAll(TeamRepository $teamRepo, PersonRepository $personRepo, Request $request, EntityManagerInterface $em): Response
+  {
+
+    $team = new Team();
+    // on affecte la valeur de '$members' en allant compter le nb de personnes reliées au team
+    $team->setMembers(count($team->getPersons()));
+
+    $form = $this->createForm(TeamType::class, $team);
+
+    $form->handleRequest($request);
+
+    // ### traitement de formulaire
+    if ($form->isSubmitted() && $form->isValid()) {
+      $em->persist($team);
+      $em->flush();
+
+      $this->redirectToRoute('back_team');
+    }
+
+    /**
+     * on met à jour les compteurs des membres
+     */
+
+    $teams = $teamRepo->findAll();
+
+    // $counter = [];
+    foreach ($teams as $team) {
+      // $counter[$team->getId()] = count($personRepo->findBy(['team' => $team->getId()]));
+
+      /**
+       * À chaque fois que cette page est affichée,
+       * on met à jour les compteurs dans la BDD
+       */
+      // $team->setMembers(count($personRepo->findBy(['team' => $team->getId()])));
+      // $em->flush();
+    }
+
+    return $this->render('back/team.html.twig', [
+      'teams' => $teams,
+      'form' => $form->createView(),
+      // 'counter' => $counter,
+    ]);
+  }
+
+  //
+  /**
    * @Route("/person", name="back_person", methods={"GET"})
    */
   public function personShowAll(PersonRepository $personRepository): Response
   {
-    $persons = $personRepository->findAll();
+    // $persons = $personRepository->findAll();
+    $persons = $personRepository->findAllOrderByTeam();
 
     return $this->render('back/person.html.twig', [
       'persons' => $persons
@@ -86,3 +138,12 @@ class BackController extends AbstractController
     ]);
   }
 }
+
+
+/**
+ * Argument 1 passed to Doctrine\ORM\Persisters\Entity\BasicEntityPersister::getSelectConditionStatementColumnSQL() 
+ * 
+ * must be of the type string, 
+ * 
+ * int given, called in /Applications/MAMP/htdocs/symfony22/udes/blog/vendor/doctrine/orm/lib/Doctrine/ORM/Persisters/Entity/BasicEntityPersister.php on line 1627
+ */
