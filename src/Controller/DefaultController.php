@@ -136,7 +136,7 @@ class DefaultController extends AbstractController
     ]);
   }
 
-  // MK -- non utilisé
+  // MK -- non utilisée
   /**
    * @Route("/article/ajouteralt", name="ajout_articlealt")
    */
@@ -198,7 +198,6 @@ class DefaultController extends AbstractController
 
     return $this->redirectToRoute('liste_articles', []);
   }
-
 
   /**
    * @Route("/categorie/ajouter", name="ajout_categorie")

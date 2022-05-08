@@ -19,8 +19,6 @@ class LearnController extends AbstractController
    */
   public function index(BookRepository $bookRepository): Response
   {
-
-    // get all the books
     $books = $bookRepository->findAll();
 
     return $this->render('learn/index.html.twig', [
@@ -31,31 +29,23 @@ class LearnController extends AbstractController
 
   /**
    * @Route("/learn/tutorials", name="learn_tutorials", methods={"GET"})
-   *
    */
   public function tutorials(): Response
   {
-
     return $this->render('learn/tutorials.html.twig', [
-      'test' => 'it works'
+      'test' => 'Vous êtes sur la page des tutoriels'
     ]);
   }
 
 
   /**
    * @Route("/learn/books", name="learn_books", methods={"GET"})
-   *
    */
   public function books(BookRepository $bookRepository, Request $request): Response
   {
-
-    // dump($request);
-    // die;
-
+    // ici on récupère le contenu de $_GET
     $action = $request->query->get('action');
-
     $method = $request->getMethod();
-
 
     $books = $bookRepository->findAll();
 
@@ -69,15 +59,11 @@ class LearnController extends AbstractController
   /**
    * @Route("/learn/books/{id}", name="learn_books_detail", methods={"GET"})
    *
-   * @param BookRepository $bookRepository
+   * @param Book $book
    * @return Response
    */
   public function books_detail(Book $book): Response
   {
-
-    // dump($book);
-    // die;
-
     return $this->render('learn/books_detail.html.twig', [
       'book' => $book
     ]);
