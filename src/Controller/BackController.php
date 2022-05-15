@@ -114,6 +114,16 @@ class BackController extends AbstractController
     // qui va automatiquement mapper les champs de f. avec les propriétés de l'objet
     $form = $this->createForm(PersonType::class, $person);
 
+    // MK -- NOTE
+    /**
+     * Si on voulait changer les valeurs de 'method' & 'action' on pourrait passer des options:
+     * 
+     * $form = $this->createForm(PersonType::class, $person, [
+     *    'action' => $this->generateUrl('target_route),
+     *    'method' => 'GET'
+     * ])
+     */
+
     $form->handleRequest($request);
 
     // 3. On traite le formulaire
